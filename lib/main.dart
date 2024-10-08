@@ -28,7 +28,7 @@ class TaskListScreen extends StatefulWidget {
 }
 
 class _TaskListScreenState extends State<TaskListScreen> {
-  final List<Task> _tasks = [];  // List of tasks
+  final List<Task> _tasks = [];  //list of task
   final TextEditingController _taskController = TextEditingController();
 
   // Method to add a task
@@ -36,23 +36,23 @@ class _TaskListScreenState extends State<TaskListScreen> {
     String taskName = _taskController.text;
     if (taskName.isNotEmpty) {
       setState(() {
-        _tasks.add(Task(name: taskName));
+        _tasks.add(Task(name: taskName));  //adding the task to listview
       });
-      _taskController.clear();
+      _taskController.clear();  //clear input
     }
   }
 
-  // Method to toggle task completion
+  //state for task completion
   void _toggleTaskCompletion(int index) {
     setState(() {
-      _tasks[index].isCompleted = !_tasks[index].isCompleted;
+      _tasks[index].isCompleted = !_tasks[index].isCompleted;  // Toggle task completion
     });
   }
 
-  // Method to delete a task
+  //to delete task
   void _deleteTask(int index) {
     setState(() {
-      _tasks.removeAt(index);
+      _tasks.removeAt(index);  //remove task
     });
   }
 
@@ -67,7 +67,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Task input field and "Add" button
+            //input task and add button
             Row(
               children: [
                 Expanded(
@@ -87,7 +87,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
               ],
             ),
             const SizedBox(height: 20),
-            // List of tasks
+            // Task list
             Expanded(
               child: ListView.builder(
                 itemCount: _tasks.length,
@@ -95,19 +95,19 @@ class _TaskListScreenState extends State<TaskListScreen> {
                   return ListTile(
                     leading: Checkbox(
                       value: _tasks[index].isCompleted,
-                      onChanged: (_) => _toggleTaskCompletion(index),
+                      onChanged: (_) => _toggleTaskCompletion(index),  //if completed
                     ),
                     title: Text(
                       _tasks[index].name,
                       style: TextStyle(
                         decoration: _tasks[index].isCompleted
-                            ? TextDecoration.lineThrough
+                            ? TextDecoration.lineThrough  // show completed with linethrough
                             : TextDecoration.none,
                       ),
                     ),
                     trailing: IconButton(
                       icon: const Icon(Icons.delete),
-                      onPressed: () => _deleteTask(index),
+                      onPressed: () => _deleteTask(index),  //deletes the task
                     ),
                   );
                 },
@@ -120,7 +120,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
   }
 }
 
-// Task class
+//holds task
 class Task {
   String name;
   bool isCompleted;
