@@ -15,22 +15,23 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const TaskManager(),
+      home: const TaskListScreen(),
     );
   }
 }
 
-class TaskManager extends StatefulWidget {
-  const TaskManager({super.key});
+class TaskListScreen extends StatefulWidget {
+  const TaskListScreen({super.key});
 
   @override
-  State<TaskManager> createState() => _TaskManagerState();
+  State<TaskListScreen> createState() => _TaskListScreenState();
 }
 
-class _TaskManagerState extends State<TaskManager> {
-  final List<Task> _tasks = [];
+class _TaskListScreenState extends State<TaskListScreen> {
+  final List<Task> _tasks = [];  // List of tasks
   final TextEditingController _taskController = TextEditingController();
 
+  // Method to add a task
   void _addTask() {
     String taskName = _taskController.text;
     if (taskName.isNotEmpty) {
@@ -41,15 +42,17 @@ class _TaskManagerState extends State<TaskManager> {
     }
   }
 
-  void _deleteTask(int index) {
-    setState(() {
-      _tasks.removeAt(index);
-    });
-  }
-
+  // Method to toggle task completion
   void _toggleTaskCompletion(int index) {
     setState(() {
       _tasks[index].isCompleted = !_tasks[index].isCompleted;
+    });
+  }
+
+  // Method to delete a task
+  void _deleteTask(int index) {
+    setState(() {
+      _tasks.removeAt(index);
     });
   }
 
@@ -84,7 +87,7 @@ class _TaskManagerState extends State<TaskManager> {
               ],
             ),
             const SizedBox(height: 20),
-            // Task list
+            // List of tasks
             Expanded(
               child: ListView.builder(
                 itemCount: _tasks.length,
@@ -117,10 +120,10 @@ class _TaskManagerState extends State<TaskManager> {
   }
 }
 
+// Task class
 class Task {
   String name;
   bool isCompleted;
 
   Task({required this.name, this.isCompleted = false});
 }
-
